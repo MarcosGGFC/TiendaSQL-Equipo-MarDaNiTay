@@ -8,6 +8,7 @@ public class GestorTienda {
 	
 	public static Scanner sc = new Scanner(System.in);
 	public static ProductView productview = new ProductView();
+	public static ClientView clientview = new ClientView();
 
 	public static void main(String[] args) {
 		
@@ -21,6 +22,9 @@ public class GestorTienda {
 			switch(opcion) {
 				case 1 -> {
 					productview.iniciar();
+				}
+				case 2 -> {
+					clientview.iniciar();
 				}
 			
 			}
