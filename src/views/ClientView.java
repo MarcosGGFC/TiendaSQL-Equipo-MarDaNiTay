@@ -1,9 +1,13 @@
 package views;
 
+import java.util.List;
 import java.util.Scanner;
+import dao.ClienteDAO;
+import models.Cliente;
 
 public class ClientView {
 	private Scanner sc = new Scanner(System.in);
+	private ClienteDAO clienteDAO = new ClienteDAO();
 	
 	public ClientView() {}
 	
@@ -11,7 +15,12 @@ public class ClientView {
 		int opcion;
 		do {
 			opcion = this.mostrarMenu();
-					
+			switch(opcion) {
+			case 1 -> {
+				this.listarClientes();
+			}
+	
+			}				
 		} while (opcion != 5);
 	}
 
@@ -26,6 +35,15 @@ public class ClientView {
 		sc.nextLine();
 		
 		return opcion;
+	}
+	
+	private void listarClientes() {
+		List<Cliente> clientes = this.clienteDAO.getAll();
+
+		for (Cliente c : clientes) {
+			System.out.println(c);
+		}
+		
 	}
 	
 }
