@@ -7,6 +7,22 @@ public class Cliente {
     private String telefono;
     private String direccion;
     
+    public Cliente(String nombre, String email, String telefono, String direccion) {
+		this.id = 0;
+		this.nombre = nombre;
+		this.email = email;
+		this.telefono = telefono;
+		this.direccion = direccion;
+	}
+    
+    public Cliente(int id, String nombre, String email, String telefono, String direccion) {
+		this.id = id;
+		this.nombre = nombre;
+		this.email = email;
+		this.telefono = telefono;
+		this.direccion = direccion;
+	}
+
 	public int getId() {
 		return id;
 	}
