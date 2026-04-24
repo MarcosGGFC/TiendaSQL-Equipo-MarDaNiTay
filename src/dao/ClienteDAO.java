@@ -3,6 +3,8 @@ package dao;
 import java.util.List;
 import java.util.ArrayList;
 import models.Cliente;
+import models.Producto;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,6 +38,28 @@ public class ClienteDAO {
 		}
 		
 		return clientes;
+	}
+	
+	public boolean add(Cliente c) {
+		
+		String sql = "INSERT INTO clientes (nombre, email, telefono, direccion) VALUES (?,?,?,?)";
+		
+		try (Connection conn = Conexion.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, c.getNombre());
+	        pstmt.setString(2, c.getEmail());
+	        pstmt.setString(3, c.getTelefono());
+	        pstmt.setString(4, c.getDireccion());
+			
+			return pstmt.executeUpdate() > 0;
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 
 }
