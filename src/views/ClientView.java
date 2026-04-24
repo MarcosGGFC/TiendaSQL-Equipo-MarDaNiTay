@@ -16,9 +16,9 @@ public class ClientView {
 		do {
 			opcion = this.mostrarMenu();
 			switch(opcion) {
-			case 1 -> {
-				this.listarClientes();
-			}
+			
+				case 1 -> this.listarClientes();
+				case 2 -> this.addCliente();
 	
 			}				
 		} while (opcion != 5);
@@ -44,6 +44,29 @@ public class ClientView {
 			System.out.println(c);
 		}
 		
+	}
+	
+	private void addCliente() {
+	    
+	    System.out.print("Nombre: ");
+	    String nombre = sc.nextLine();
+	    
+	    System.out.print("Email: ");
+	    String email = sc.nextLine();
+	    
+	    System.out.print("Teléfono: ");
+	    String telefono = sc.nextLine();
+	    
+	    System.out.print("Dirección: ");
+	    String direccion = sc.nextLine();
+
+	    Cliente nuevoCliente = new Cliente(nombre, email, telefono, direccion);
+	    
+	    if (clienteDAO.add(nuevoCliente)) {
+	        System.out.println("Cliente insertado correctamente.");
+	    } else {
+	        System.out.println("No se pudo guardar el cliente.");
+	    }
 	}
 	
 }
