@@ -8,3 +8,11 @@ CREATE TABLE IF NOT EXISTS productos (
 	precio DECIMAL(7,2),
 	stock INT
 );
+
+CREATE TABLE IF NOT EXISTS clientes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    telefono VARCHAR(20),
+    direccion VARCHAR(255)
+);
