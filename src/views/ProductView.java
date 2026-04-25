@@ -1,9 +1,9 @@
 package views;
 
-import java.util.Scanner;
-import java.util.List;
-import models.Producto;
 import dao.ProductoDAO;
+import java.util.List;
+import java.util.Scanner;
+import models.Producto;
 
 public class ProductView {
 	private Scanner sc = new Scanner(System.in);

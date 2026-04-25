@@ -19,6 +19,7 @@ public class ClientView {
                 case 1 -> this.listarClientes();
                 case 2 -> this.addCliente();
                 case 3 -> this.actualizarCliente();
+                case 4 -> this.borrarCliente();
             }               
         } while (opcion != 5);
     }
@@ -47,12 +48,16 @@ public class ClientView {
     private void addCliente() {
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
+        
         System.out.print("Email: ");
         String email = sc.nextLine();
+        
         System.out.print("Teléfono: ");
         String telefono = sc.nextLine();
+        
         System.out.print("Dirección: ");
         String direccion = sc.nextLine();
+
         Cliente nuevoCliente = new Cliente(nombre, email, telefono, direccion);
         
         if (clienteDAO.add(nuevoCliente)) {
@@ -82,6 +87,17 @@ public class ClientView {
             System.out.println("Cliente actualizado correctamente");
         } else {
             System.out.println("No se puede actualizar el cliente");
+        }
+    }
+    
+    private void borrarCliente() {
+        System.out.println("Introduce el ID del cliente que quieres borrar: ");
+        int id = sc.nextInt();
+        
+        if(this.clienteDAO.delete(id)) {
+            System.out.println("Cliente eliminado");
+        } else {
+            System.out.println("ID no existe");
         }
     }
 }

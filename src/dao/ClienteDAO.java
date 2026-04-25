@@ -39,7 +39,6 @@ public class ClienteDAO {
     }
     
     public boolean add(Cliente c) {
-        
         String sql = "INSERT INTO clientes (nombre, email, telefono, direccion) VALUES (?,?,?,?)";
         
         try (Connection conn = Conexion.getConnection()) {
@@ -76,6 +75,22 @@ public class ClienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
+    }
+    
+    public boolean delete(int id) {
+        String sql = "DELETE FROM clientes WHERE id = ?";
+        
+        try (Connection conn = Conexion.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            
+            pstmt.setInt(1, id);
+            
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
         return false;
     }
 }
