@@ -28,6 +28,7 @@ public class ProductView {
 			case 4 -> {
 				this.borrarProducto();
 			}
+			
 			}			
 		} while (opcion != 5);
 	}
