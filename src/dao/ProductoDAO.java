@@ -58,5 +58,39 @@ public class ProductoDAO {
 		
 		return false;
 	}
+	public boolean update(Producto p) {
+		String sql = "UPDATE productos SET nombre = ?, precio = ?, stock = ? WHERE id = ?";
+		
+		try (Connection conn = Conexion.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, p.getNombre());
+			pstmt.setDouble(2, p.getPrecio());
+			pstmt.setInt(3, p.getStock());
+			pstmt.setInt(4, p.getId());
+			
+			return pstmt.executeUpdate() > 0;
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean delete(int id) {
+		String sql = "DELETE FROM productos WHERE id = ?";
+		
+		try (Connection conn = Conexion.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, id);
+			
+			return pstmt.executeUpdate() > 0;
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 
 }
