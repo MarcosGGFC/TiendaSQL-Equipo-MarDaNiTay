@@ -16,3 +16,13 @@ CREATE TABLE IF NOT EXISTS clientes (
     telefono VARCHAR(20),
     direccion VARCHAR(255)
 );
+
+CREATE TABLE IF NOT EXISTS pedidos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_cliente INT,
+    id_producto INT,
+    fecha DATE,
+    cantidad INT,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_producto) REFERENCES productos(id) ON DELETE CASCADE
+);
