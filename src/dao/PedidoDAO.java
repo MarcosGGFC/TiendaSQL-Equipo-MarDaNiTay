@@ -1,14 +1,13 @@
 package dao;
 
-import java.util.List;
-import java.util.ArrayList;
-import models.Pedido;
-
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
+import models.Pedido;
 
 public class PedidoDAO {
 
@@ -23,8 +22,10 @@ public class PedidoDAO {
             while(rs.next()) {
                 Pedido p = new Pedido(
                         rs.getInt("id"), 
-                        rs.getString("emailCliente"), 
-                        rs.getDate("fecha")
+                        rs.getInt("id_cliente"), 
+                        rs.getDate("fecha"),
+                        rs.getInt("cantidad"),
+                        rs.getInt("id_Producto")
                 );
                             
                 pedidos.add(p);
@@ -38,13 +39,15 @@ public class PedidoDAO {
     }
     
     public boolean add(Pedido p) {
-        String sql = "INSERT INTO pedidos (id_cliente, fecha) VALUES (?,?)";
+        String sql = "INSERT INTO pedidos (id_cliente, fecha, cantidad, id_Producto) VALUES (?,?,?,?)";
         
         try (Connection conn = Conexion.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             
-            pstmt.setString(1, p.getEmailCliente());
+            pstmt.setInt(1, p.getIdCliente());
             pstmt.setDate(2, p.getFecha());
+            pstmt.setInt(3, p.getCantidad());
+            pstmt.setInt(4, p.getIdProducto());
             
             return pstmt.executeUpdate() > 0;
             
@@ -56,14 +59,16 @@ public class PedidoDAO {
     }
 
     public boolean update(Pedido p) {
-        String sql = "UPDATE pedidos SET id_cliente = ?, fecha = ? WHERE id = ?";
+        String sql = "UPDATE pedidos SET id_cliente = ?, fecha = ?, cantidad= ?, id_Producto = ? WHERE id = ?";
         
         try (Connection conn = Conexion.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             
-            pstmt.setString(1, p.getEmailCliente());
+            pstmt.setInt(1, p.getIdCliente());
             pstmt.setDate(2, p.getFecha());
-            pstmt.setInt(3, p.getId());
+            pstmt.setInt(3, p.getCantidad());
+            pstmt.setInt(4, p.getIdProducto());
+            pstmt.setInt(5, p.getId());
             
             return pstmt.executeUpdate() > 0;
             
@@ -73,13 +78,13 @@ public class PedidoDAO {
         return false;
     }
     
-    public boolean delete(String email) {
-        String sql = "DELETE FROM pedidos WHERE email = ?";
+    public boolean delete(int id) {
+        String sql = "DELETE FROM pedidos WHERE id = ?";
         
         try (Connection conn = Conexion.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             
-            pstmt.setString(1, email);
+            pstmt.setInt(1, id);
             
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {

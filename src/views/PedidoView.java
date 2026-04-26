@@ -1,10 +1,10 @@
 package views;
 
-import java.util.List;
-import java.util.Scanner;
+import dao.PedidoDAO;
 import java.sql.Date;
 import java.time.LocalDate;
-import dao.PedidoDAO;
+import java.util.List;
+import java.util.Scanner;
 import models.Pedido;
 
 public class PedidoView {
@@ -44,12 +44,16 @@ public class PedidoView {
     
     private void addPedido() {
         System.out.print("Introduce el email del cliente que hace el pedido: ");
-        String emailCliente = sc.next();
+        int idCliente = sc.nextInt();
         sc.nextLine();
+        System.out.println("Introduce la cantidad del producto elegido: ");
+        int cantidad = sc.nextInt();
+        System.out.println("Introduce el id del producto: ");
+        int idProducto = sc.nextInt();
 
         Date fechaActual = Date.valueOf(LocalDate.now());
         
-        Pedido nuevoPedido = new Pedido(emailCliente, fechaActual);
+        Pedido nuevoPedido = new Pedido(idCliente, fechaActual, cantidad, idProducto);
         
         if (pedidoDAO.add(nuevoPedido)) {
             System.out.println("Pedido registrado correctamente.");
@@ -68,10 +72,10 @@ public class PedidoView {
 	}
     
     private void borrarPedidos() {
-    	System.out.println("Introduce el email del cliente del que quieres borrar su pedido: ");
-    	String emailBorrar = sc.next();
+    	System.out.println("Introduce el id del pedido del que quieres borrar el pedido: ");
+    	int idCliente = sc.nextInt();
     	
-    	if(this.pedidoDAO.delete(emailBorrar)) {
+    	if(this.pedidoDAO.delete(idCliente)) {
 			System.out.println("Pedido eliminado");
 		}else {
 			System.out.println("Error el email no existe o no tiene pedidos asociados.");
